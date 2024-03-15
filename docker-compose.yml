@@ -1,0 +1,34 @@
+
+version: '3.1'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    network_mode: host
+    volumes:
+      - ./Project:/var/www/html/
+
+    tty: true
+
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+    restart: always
+    network_mode: host
+
+  db:
+    image: postgres
+    restart: always
+    network_mode: host
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - mysql-data:/var/lib/postgres
+
+volumes:
+  mysql-data:
