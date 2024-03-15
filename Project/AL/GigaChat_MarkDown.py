@@ -6,9 +6,14 @@ import GigaChat_token
 def get_formated_text(unformated_text, GigaChat_model="GigaChat:latest"):
     """
     Отправляет POST-запрос к API чата для получения ответа моделей GigaChat/GigaChat-Pro
-    - auth_tiken (str): Токен для авторизации API
     - unformated_text (str): Текст, который нужно привести отформатировать в соответствии с разметкой markdown
-    
+    - GigaChat_model (str): Возможные значения поля model:
+        GigaChat — базовая модель для решения более простых задач;
+        GigaChat:latest — последняя версия базовой модели;
+        GigaChat-Plus — модель с увеличенным контекстом. Подходит, например, для суммаризации больших документов;
+        GigaChat-Pro — модель лучше следует сложным инструкциям и может выполнять более комплексные задачи.
+        Значение по умолчанию GigaChat:latest
+        
     Возвращает:
     - srt: Форматированный текст в виде текстовой строки
     """
@@ -24,6 +29,10 @@ def get_formated_text(unformated_text, GigaChat_model="GigaChat:latest"):
     "model": GigaChat_model, #Используемая модель
     "messages": [
         {
+            "role": "system",
+            "content": "Перепиши текст с учетом вида текста и выбранного стиля. Выдели основные термины, заголовки, подпункты. Используй жирный шрифт для терминов и курсив для их определений."
+        },
+        {
         "role": "user",
         "content": unformated_text
         }
@@ -32,7 +41,7 @@ def get_formated_text(unformated_text, GigaChat_model="GigaChat:latest"):
     "top_p": 0.1, # Контроль разнообразия ответов
     "n": 1, # Количество возвращаемых ответов
     "stream": False, # Потоковая передача ответов
-    "max_tokens": len(unformated_text)//3, # Максимальное кол-во токенов в ответе
+    "max_tokens": len(unformated_text)//2, # Максимальное кол-во токенов в ответе
     "repetition_penalty": 1 #Штраф за повторения
     })
     token=GigaChat_token.get_token(auth_token)

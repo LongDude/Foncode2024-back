@@ -1,11 +1,11 @@
 import requests
 import json
+import GigaChat_MarkDown
 
 def query(filename):
-    """_summary_
-
+    """
     Args:
-        filename (String): Путь к файлу или его имя
+        filename (String): Путь к файлу или его имя, файлы длинной около 30 секунд
 
     Returns:
         String: Текст распознанный с помощью модели
@@ -18,9 +18,13 @@ def query(filename):
     
     headers = {"Authorization": f"Bearer {auth_token}"}
     API_URL = "https://api-inference.huggingface.co/models/openai/whisper-large-v3"
+    #Считываем аудио файл и отправляем его на распознаванием с помощью пост запроса
     with open(filename, "rb") as f:
         data = f.read()
     response = requests.post(API_URL, headers=headers, data=data)
-    return response.json()["text"]
+    #Форматируем текст при помощи нейросети
+    formated_text=GigaChat_MarkDown.get_formated_text(response.json()["text"])
+    return formated_text
+
 if __name__=="__main__":
-    print(query(""))
+    print(query("test.mp3"))
