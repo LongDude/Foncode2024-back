@@ -10,3 +10,6 @@ docker compose up
 ```bash
 docker exec django zsh
 ```
+
+# Морда проекта
+https://github.com/LongDude/Foncode2024
