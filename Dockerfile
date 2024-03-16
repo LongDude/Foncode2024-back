@@ -1,4 +1,4 @@
-FROM python:3.9-buster
+FROM python:3.10-buster
 
 RUN apt-get update
 
@@ -31,10 +31,5 @@ WORKDIR /var/www/html
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-<<<<<<< Updated upstream
-CMD python manage.py makemigrations \
-&& python manage.py migrate \
-&& python manage.py runserver 0.0.0.0:8000
-=======
 CMD sh start.sh
->>>>>>> Stashed changes
+
