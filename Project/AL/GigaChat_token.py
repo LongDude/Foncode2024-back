@@ -1,5 +1,6 @@
 import requests
 import uuid
+import json
 
 def get_token(auth_token,scope='GIGACHAT_API_PERS'):
     """
@@ -25,3 +26,10 @@ def get_token(auth_token,scope='GIGACHAT_API_PERS'):
     # Отправляем пост запрос для получения токена
     response = requests.request("POST", url, headers=headers, data=payload,verify=False)
     return response.json()['access_token']
+
+if __name__=="__main__":
+    
+    file=open("key.json").read()
+    file=json.loads(file)
+    auth_token=file["token"]
+    print(get_token(auth_token))
