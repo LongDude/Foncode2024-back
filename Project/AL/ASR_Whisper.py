@@ -5,7 +5,7 @@ import GigaChat_MarkDown
 def query(filename):
     """
     Args:
-        filename (String): Путь к файлу или его имя, файлы длинной около 30 секунд
+        filename (Str): Путь к файлу или его имя, файлы длинной около 30 секунд
 
     Returns:
         String: Текст распознанный с помощью модели

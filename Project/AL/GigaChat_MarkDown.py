@@ -30,7 +30,7 @@ def get_formated_text(unformated_text, GigaChat_model="GigaChat:latest"):
     "messages": [
         {
             "role": "system",
-            "content": "Перепиши текст с учетом вида текста и выбранного стиля. Выдели основные термины, заголовки, подпункты. Используй жирный шрифт для терминов и курсив для их определений."
+            "content": "Перепиши текст используя язык разметки markdown. Выдели основные термины, заголовки, подпункты. Используй жирный шрифт для терминов и курсив для их определений."
         },
         {
         "role": "user",
@@ -52,5 +52,4 @@ def get_formated_text(unformated_text, GigaChat_model="GigaChat:latest"):
     }
     # Запрос на получение форматированного текста
     response = requests.request("POST", url, headers=headers, data=payload,verify=False)
-    
-    return response.json()['choises'][0]['message']['content']
+    return response.json()['choices'][0]['message']['content']
