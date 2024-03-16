@@ -26,7 +26,7 @@ class Course(Model.model):
     description = models.CharField(max_length=500)
 
 class Content(Model.model):
-    """ Содержимое курса """
+    """ Содержимое курса (файл) """
     path = models.CharField(max_length=200)
     ctype = models.CharField(max_length=200)
     upload_date = models.DateTimeField(auto_now_add=True, auto_now=False, blank=True)
