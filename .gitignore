@@ -1,2 +1,6 @@
 .venv
+<<<<<<< Updated upstream
 __pycache__/
+=======
+/Project/test_api/__pycache__
+>>>>>>> Stashed changes
