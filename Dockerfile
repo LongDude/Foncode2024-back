@@ -31,4 +31,4 @@ WORKDIR /var/www/html
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD python manage.py migrate && python manage.py createsuperuser --noinput && python manage.py runserver 0.0.0.0:8000
