@@ -7,7 +7,7 @@ from rest_framework import viewsets
 from .models import User
 from .models import *
 from .serializers import *
-
+from AL import Paper_A
 
 class UserViewset(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -52,6 +52,15 @@ def register_user(request):
         )
         newUser.save()
         return Response(UserSerializer(newUser).data, status=status.HTTP_200_OK)
+
+@app_view
+def пнуть_ии(request):
+    question = request.data.get("question")
+    filepath = request.content.path
+
+
+    return Response(Paper_A.get_answer(question,[filepath])[0], status=HTTP_200_OK)
+
 
 @api_view
 def get_courses_byUser(request):
