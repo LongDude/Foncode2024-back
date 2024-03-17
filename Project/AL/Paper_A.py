@@ -6,7 +6,7 @@ import filetotext
 
 def get_chunks(database):
     doc_list = []
-    splitter = CharacterTextSplitter(separator="\n", chunk_size=128, chunk_overlap=0)
+    splitter = CharacterTextSplitter(separator="\n", chunk_size=1000, chunk_overlap=0)
     for chunk in splitter.split_text(database):
         doc_list.append(chunk)
     return doc_list
@@ -49,6 +49,6 @@ def get_answer(topic,filenames,k=1):
     embeddings_res = get_message_content(topic, faiss_retriever)
     return embeddings_res
 if __name__=="__main__":
-    topic="Квантовая физика"
+    topic="Блок Terminate"
     filenames=["1.md"]
     print(get_answer(topic,filenames))

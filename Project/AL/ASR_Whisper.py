@@ -32,4 +32,4 @@ def query(filename):
         return(response.text)
 
 if __name__=="__main__":
-    print(query("test.m4a"))
+    print(query("test.mp3"))
