@@ -32,11 +32,11 @@ class UserViewset(viewsets.ModelViewSet):
     
     def retrieve(self, request, pk=None):
         print("retrieve user")
-        print(request.data)
+        print(request.query_params)
 
-        login = request.query_params.get("login")
-        
+        login = request.query_params["login"]        
         users = User.objects.filter(login=login)
+        print(login, users)
         user = get_object_or_404(users)
         serializer = UserSerializer(user)
         return Response(serializer.data)

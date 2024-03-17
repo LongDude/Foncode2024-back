@@ -1,6 +1,7 @@
 Django
 django-rest-framework
 psycopg2
+django-cors-headers
 
 # ai
 #langchain
