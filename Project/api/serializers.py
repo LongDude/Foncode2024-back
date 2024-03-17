@@ -20,3 +20,8 @@ class FaculitySerializer(serializers.ModelSerializer):
     class Meta:
         model=Faculity
         fields=["name"]
+
+class ContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Content
+        fields=["path", "ctype", "upload_date"]

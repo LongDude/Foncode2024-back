@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from .models import User
-from .serializers import UserSerializer
+from .models import *
+from .serializers import *
 
 
 class UserViewset(viewsets.ModelViewSet):
@@ -33,10 +34,64 @@ class UserViewset(viewsets.ModelViewSet):
         print("retrieve user")
         print(request.data)
 
-        login = request.data.get("login")
+        login = request.query_params.get("login")
         
-        users = User.objects.filter(name=name)
+        users = User.objects.filter(login=login)
         user = get_object_or_404(users)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+@api_view(["POST"])
+def register_user(request):
+    user = User.objects.filter(login=request.data.get("login")).first()
+    if user:
+        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+    else:
+        newUser = User(
+            user
+        )
+        newUser.save()
+        return Response(UserSerializer(newUser).data, status=status.HTTP_200_OK)
+
+@api_view
+def get_courses_byUser(request):
+    couses = Course.objects.filter(id__user_course__user_id = request.user.id)
+    serializer = CourceSerializer(couses, many=True)
+    return Response(serializer.data, status=HTTP_200_OK)
+
+@api_view
+def get_courses(request):
+    couses = Course.objects.all()
+    serializer = CourceSerializer(couses, many=True)
+    return Response(serializer.data, status=HTTP_200_OK)
+
+@api_view
+def get_course_content(request):
+    content = Content.objects.filter(course_id=request.course.id).first()
+    serializer = ContentSerializer(content)
+    return Response(serializer.date, status=HTTP_200_OK)
+
+@api_view(["GET"])
+def get_faculity_list(request):
+    faculityes = Faculity.objects.all()
+    serializer = FaculitySerializer(faculityes, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def get_faculity_groups(request):
+    groups = Group.objects.filter(facility_id=request.faculity.id)
+    serializer = GroupSerializer(groups, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def get_group_users(request):
+    users = User.objects.filter(group_id=request.group.id)
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def get_users(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
