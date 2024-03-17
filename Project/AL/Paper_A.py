@@ -1,6 +1,7 @@
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
+import filetotext
 
 
 def get_chunks(database):
@@ -36,10 +37,7 @@ def get_answer(topic,filenames,k=1):
     Returns:
         list(str): Спискок полученных ответов зависит от параметра k
     """
-    knowledge_base=""
-    for f in filenames:
-        text=open(f,encoding="UTF-8").read()
-        knowledge_base+=text
+    knowledge_base=filetotext.format_to_text(filenames)
     # Модель для embeddings
     model='intfloat/multilingual-e5-large'
     # Основной цикл
