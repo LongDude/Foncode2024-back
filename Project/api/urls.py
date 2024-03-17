@@ -4,5 +4,6 @@ from .views import UserViewset
 from rest_framework.routers import DefaultRouter
 
 urlpatterns=[
-    path('login/', UserAPI.as_view()),
+    path('login/', UserViewset.as_view({'get': 'retrieve'})),
+    path('register/', UserViewset.as_view({'post': 'create'}))
 ]

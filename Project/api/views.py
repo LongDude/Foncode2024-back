@@ -8,37 +8,6 @@ from .models import User
 from .serializers import UserSerializer
 
 
-class UserAPI(APIView):
-
-    def get(self, request):
-        ''' get user by id'''
-        try:
-            user_id = request.data.get('name')
-            user = User.objects.get(name=user_id)
-        except User.DoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        
-        usr_ser = UserSerializer(data=user)
-        if usr_ser.is_valid():
-            return Response(usr_ser.data, status=status.HTTP_200_OK)
-        return Response(usr_ser.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def post(self, request):
-        data = {
-            'name': request.data.get('name'),
-            'surname': request.data.get('surname'),
-            'patronymic': request.data.get('patronymic')
-        }
-        serializer = UserSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-from .serializers import *
-
-
 class UserViewset(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -64,8 +33,7 @@ class UserViewset(viewsets.ModelViewSet):
         print("retrieve user")
         print(request.data)
 
-        name = request.data.get("name")
-        print(name)
+        login = request.data.get("login")
         
         users = User.objects.filter(name=name)
         user = get_object_or_404(users)
