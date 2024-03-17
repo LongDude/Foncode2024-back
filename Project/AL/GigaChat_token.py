@@ -25,7 +25,10 @@ def get_token(auth_token,scope='GIGACHAT_API_PERS'):
     }
     # Отправляем пост запрос для получения токена
     response = requests.request("POST", url, headers=headers, data=payload,verify=False)
-    return response.json()['access_token']
+    if response.status_code==200:
+        return response.json()['access_token']
+    else:
+        return response.text
 
 if __name__=="__main__":
     

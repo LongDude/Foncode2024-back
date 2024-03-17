@@ -52,4 +52,7 @@ def get_formated_text(unformated_text, GigaChat_model="GigaChat:latest"):
     }
     # Запрос на получение форматированного текста
     response = requests.request("POST", url, headers=headers, data=payload,verify=False)
-    return response.json()['choices'][0]['message']['content']
+    if response.status_code==200:
+        return response.json()['choices'][0]['message']['content']
+    else:
+        return response.text
