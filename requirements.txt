@@ -1,8 +1,10 @@
 Django
 django-rest-framework
 psycopg2
-langchain
-requests
-uuid
-transformers
-torch
+
+# ai
+#langchain
+#requests
+#uuid
+#transformers
+#torch
