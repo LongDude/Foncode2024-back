@@ -8,9 +8,6 @@ def get_chunks(database):
     splitter = CharacterTextSplitter(separator="\n", chunk_size=500, chunk_overlap=0)
     for chunk in splitter.split_text(database):
         doc_list.append(chunk)
-
-    chunk_num = len(doc_list)
-
     return doc_list
 # Поиск релевантных отрезков с помощью faiss_retrieve
 def get_message_content(topic, faiss_retriever):
@@ -32,15 +29,13 @@ def get_answer(topic,knowledge_base,k=1):
     # Основной цикл
     embeddings_hf = get_embeddings(model)
     doc_list = get_chunks(knowledge_base)
-
-    embeddings_hf = get_embeddings(model)
     faiss_vectorstore = FAISS.from_texts(doc_list, embeddings_hf)
     faiss_retriever = faiss_vectorstore.as_retriever(search_kwargs={"k": k})
 
     embeddings_res = get_message_content(topic, faiss_retriever)
     return embeddings_res
 if __name__=="__main__":
-    topic="Блок Seize"
+    topic="Блок Terminate"
     knowledge_base="""
     Блок Generate предназначен для внесения в модель транзактов которые соответствует некоторым заявкам на обслуживание в моделируемой системе. Например запросы к серверу.
     Имеются параметры 

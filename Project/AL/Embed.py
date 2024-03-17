@@ -5,7 +5,7 @@ def get_embeddigs(sentences):
     """_summary_
 
     Args:
-        sentences (_type_): _description_
+        sentences (list(str)): _description_
 
     Returns:
         numpy_matrix: _description_
