@@ -6,7 +6,7 @@ from .views import *
 router = routers.DefaultRouter()
 
 # работа с пользователем
-router.register(r"register", UserViewset, basename="register-user")
+router.register(r"user", UserViewset)
 #router.register(r"login", UserViewset)
 
 # работа с курсом

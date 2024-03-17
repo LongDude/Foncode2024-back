@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
@@ -12,8 +13,8 @@ class UserAPI(APIView):
     def get(self, request):
         ''' get user by id'''
         try:
-            user_id = request.user.id
-            user = User.objects.get(id=user_id)
+            user_id = request.data.get('name')
+            user = User.objects.get(name=user_id)
         except User.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
@@ -39,6 +40,7 @@ from .serializers import *
 
 class UserViewset(viewsets.ModelViewSet):
     serializer_class = UserSerializer
+    queryset = User.objects.all()
 
     def create(self, request, *args, **kwargs):
         print('create user')
@@ -59,10 +61,9 @@ class UserViewset(viewsets.ModelViewSet):
     
     def retrieve(self, request, pk=None):
         print("retrieve user")
-
+        print(request.data)
         name = request.data.get("name")
-        password = request.data.get('password')
-
+        print(name)
         users = User.objects.filter(name=name)
         user = get_object_or_404(users)
         serializer = UserSerializer(user)
