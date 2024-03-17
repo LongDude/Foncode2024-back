@@ -4,5 +4,5 @@ from .views import UserViewset
 from rest_framework.routers import DefaultRouter
 
 urlpatterns=[
-    path('user/', UserAPI.as_view()),
+    path('login/', UserAPI.as_view()),
 ]
