@@ -1,5 +1,4 @@
 from transformers import AutoTokenizer, T5ForConditionalGeneration
-from functools import partial
 
 AAQG_PROMPT = "Сгенерируй вопрос по тексту, используя известный ответ. Текст: '{context}'. Ответ: '{answer}'."
 QG_PROMPT = "Сгенерируй вопрос по тексту. Текст: '{context}'."
