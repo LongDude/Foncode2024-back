@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
+from rest_framework import viewsets
 from .models import User
 from .serializers import UserSerializer
+
 
 class UserAPI(APIView):
 
@@ -15,7 +16,11 @@ class UserAPI(APIView):
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        return Response(UserSerializer(data=user), status=status.HTTP_200_OK)
+        
+        usr_ser = UserSerializer(data=user)
+        if usr_ser.is_valid():
+            return Response(usr_ser.data, status=status.HTTP_200_OK)
+        return Response(usr_ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request):
         data = {
@@ -51,3 +56,15 @@ class UserViewset(viewsets.ModelViewSet):
                 name=name, password=password)
             newUser.save()
             return Response(self.get_serializer(newUser).data, status=status.HTTP_201_CREATED)
+    
+    def retrieve(self, request, pk=None):
+        print("retrieve user")
+
+        name = request.data.get("name")
+        password = request.data.get('password')
+
+        users = User.objects.filter(name=name)
+        user = get_object_or_404(users)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+

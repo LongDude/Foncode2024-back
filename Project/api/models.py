@@ -20,6 +20,7 @@ class User(models.Model):
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
     patronymic = models.CharField(max_length=200)
+    password = models.CharField(max_length=50)
     group_name = models.CharField(max_length=200, null=True)
     group_id = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True)
     VK_ID = models.CharField(max_length=200, null=True)
