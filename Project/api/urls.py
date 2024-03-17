@@ -13,5 +13,6 @@ urlpatterns=[
     path("get_courses_byuser", get_courses_byUser),
     path("get_courses", get_courses),
     path("get_course_content", get_course_content),
-    path("get_faculity_list", get_faculity_list)
+    path("get_faculity_list", get_faculity_list),
+    path("kick_ai", пнуть_ии)
 ]
