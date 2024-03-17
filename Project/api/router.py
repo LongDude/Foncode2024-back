@@ -6,8 +6,8 @@ from .views import *
 router = routers.DefaultRouter()
 
 # работа с пользователем
-router.register(r"login", UserViewset.as_view({'get': 'retrieve'}))
-router.register(r"register", UserViewset.as_view({'post': 'create'}))
+#router.register(r"login", UserViewset.as_view({'get': 'retrieve'}))
+#router.register(r"register", UserViewset.as_view({'post': 'create'}))
 
 #router.register(r"login", UserViewset)
 
